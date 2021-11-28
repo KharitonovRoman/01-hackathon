@@ -1,13 +1,90 @@
-import { Module } from '../core/module'
+import { Module } from '../core/module';
+import { random } from '../utils';
+import 'konva/konva';
 
 export default class ShapeModule extends Module {
+	#shapeContainer;
+	#canvasWidth;
+	#canvasHeight;
+	stage;
 	
 	constructor(text) {
 		super('Shape', text);
+		this.#canvasWidth = window.innerWidth;
+		this.#canvasHeight = window.innerHeight;
+		this.#shapeContainer = document.createElement('div');
+		this.#shapeContainer.id = 'shapeContainer';
+		this.#shapeContainer.style.position = 'absolute';
+		this.#shapeContainer.style.top = '0';
+		this.#shapeContainer.style.left = '0';
+		document.body.append(this.#shapeContainer);
+		this.stage = new Konva.Stage({
+			container: 'shapeContainer',
+			width: this.#canvasWidth,
+			height: this.#canvasHeight,
+		});
 	}
 
 	trigger() {
-		console.log('Shape triggered');
-	}
+		let baseLayer = new Konva.Layer();
+		
+		const shapeRadius = random(80, 120);
+		const shapeCoordinateX = random(shapeRadius, this.#canvasWidth - shapeRadius);
+		const shapeCoordinateY = random(shapeRadius, this.#canvasHeight - shapeRadius);
+		const shapeColor = `rgb(${ random(50, 255) }, ${ random(50, 255) }, ${ random(50, 255) })`;
 
+		let shape;
+		if (random(0, 1)) {
+			shape = new Konva.Circle({ x: shapeCoordinateX, y: shapeCoordinateY, radius: shapeRadius, fill: shapeColor, stroke: 'black' });
+		} else {
+			shape = new Konva.RegularPolygon({ x: shapeCoordinateX, y: shapeCoordinateY, sides: random(3, 10), radius: shapeRadius, fill: shapeColor, stroke: 'black', strokeWidth: 5 });
+		}
+
+		shape.draggable(true);
+		shape.opacity(0.9);
+
+		if (shape instanceof Konva.RegularPolygon) {
+			shape.on('mousedown', function () {
+				shape.sides(shape.sides() + 1);
+				baseLayer.draw();
+			});
+			
+			shape.on('mouseleave', function () {
+				let totalSides = shape.sides();
+				if (totalSides > 3) {
+					shape.sides(shape.sides() - 1);
+				}
+				baseLayer.draw();
+			});
+		} else if (random(0, 1)) {
+			shape.on('mousemove', function () {
+				const pointerPos = this.stage.getPointerPosition();
+				shape.fill(`rgb(${ pointerPos.x % 255 }, ${ pointerPos.y % 255 }, 100)`);
+				baseLayer.draw();
+			});
+		} else {
+			shape.on('mouseover.radius', function () {
+				let curRadius = shape.radius();
+				if (curRadius < 150) {
+					shape.radius(curRadius + 5);
+					baseLayer.draw();
+				} else {
+					shape.off('mouseover.radius');
+				}
+			});
+			
+			shape.on('mouseover.fillcolor', function () {
+				shape.fill(`hsl(${ random(0, 360) }, 60%, 60%)`);
+				baseLayer.draw();
+			});
+		}
+		
+		baseLayer.add(shape);
+		this.stage.add(baseLayer);
+
+		setTimeout(() => {
+			shape.destroy();
+		}, 5000);
+		
+	}
 }

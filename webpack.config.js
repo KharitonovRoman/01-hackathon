@@ -58,6 +58,21 @@ module.exports = (env, argv) => {
 						},
 					},
 				},
+				{
+					test: /\.(png|jpe?g|gif)$/i,
+					use: [
+						{
+							loader: 'file-loader',
+						},
+					],
+				},
+				{
+					test: /\.mp3$/,
+					loader: 'file-loader',
+					options: {
+						name: '[path][name].[ext]',
+					},
+				},
 			],
 		},
 	};
