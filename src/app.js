@@ -7,6 +7,11 @@ import SoundModule from './modules/sound.module';
 import TimerModule from './modules/timer.module';
 import MessageModule from './modules/message.module';
 import AboutDevsModule from './modules/about-devs.module';
+import BlockWeather from './weather/block';
+
+// добавил код AssetGA
+const city = new BlockWeather()
+document.body.append(city.container)
 
 const contextMenu = new ContextMenu('#menu');
 
@@ -39,3 +44,8 @@ document.body.addEventListener('click', (event) => {
 		});
 	}
 });
+
+
+
+
+
