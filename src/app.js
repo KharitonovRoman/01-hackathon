@@ -7,6 +7,7 @@ import SoundModule from './modules/sound.module';
 import TimerModule from './modules/timer.module';
 import MessageModule from './modules/message.module';
 import AboutDevsModule from './modules/about-devs.module';
+import WeatherModule from './modules/weather.module';
 import MeteorShower from './modules/meteor-shower';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
@@ -23,6 +24,7 @@ const contextMenuModules = [
 	new TimerModule('Запустить таймер'),
 	new MessageModule('Создать сообщение'),
 	new MeteorShower('Метеоритный дождь'),
+  new WeatherModule('Погода'),
 	new AboutDevsModule('О разработчиках'),
 ];
 
