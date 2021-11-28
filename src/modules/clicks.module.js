@@ -71,7 +71,7 @@ export default class ClicksModule extends Module {
 
 	#startAnalytics() {
 		this.#isActive = true;
-		this.#updateTimer(`0${this.#timerValue}`);
+		this.#updateTimer(this.#timerValue);
 		setTimeout(() => {
 			this.#isActive = false;
 		},  this.#clicksTimeoutInSeconds * 1000);
@@ -82,10 +82,7 @@ export default class ClicksModule extends Module {
 	#displayTimer() {
 		console.log('displayTimer', this.#timerValue);
 		if(this.#timerValue !== 0) {
-			let value = --this.#timerValue;
-			if(value < this.#clicksTimeoutInSeconds) {
-				value = `0${value}`;
-			}
+			let value = --this.#timerValue;			
 			this.#updateTimer(value);
 		} else {
 			clearInterval(this.#timerDisplayId);
@@ -106,6 +103,9 @@ export default class ClicksModule extends Module {
 
 	#updateTimer(value) {
 		let timerElem = document.querySelector('#clicks-module-timer-id');
+		if(value < 10) {
+			value = `0${value}`;
+		}
 		timerElem.textContent = `00:${value}`;
 	}
 
