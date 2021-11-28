@@ -7,20 +7,20 @@ export default class WeatherModule extends Module{
         this.container = document.createElement('div');
         this.container.classList = 'container';
         this.container.id = 'container';
-        const weatherContainer  = document.createElement('div');
-        weatherContainer.classList = 'block';
-        const blockCity = document.createElement('div');
-        blockCity.classList = 'block-city';
-        const info = document.createElement('div');
-        info.classList = 'info-weather';
-        info.innerHTML =
+        this.weatherContainer = document.createElement('div');
+        this.weatherContainer.classList = 'block';
+        this.blockCity = document.createElement('div');
+        this.blockCity.classList = 'block-city';
+        this.info = document.createElement('div');
+        this.info.classList = 'info-weather';
+        this.info.innerHTML =
             `
                 <div class='weather'></div>
                 <div class='wind'></div>   
                 <div class='temp'></div>
             `;
-        weatherContainer.append(blockCity, info);
-        this.container.append(weatherContainer);
+        this.weatherContainer.append(this.blockCity, this.info);
+        this.container.append(this.weatherContainer);
         
     };
 
@@ -29,8 +29,7 @@ export default class WeatherModule extends Module{
         document.body.append(this.container);
         const blockCity = document.querySelector('.block-city');
         if (blockCity.textContent === ''){
-            const block = document.querySelector('.block-city');
-            block.classList.add('loader') ;
+            blockCity.classList.add('loader') ;
         } 
         navigator.geolocation.getCurrentPosition(function(position) {
             let requestLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${WEATHER_API_TOKEN}`;
