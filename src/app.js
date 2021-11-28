@@ -7,11 +7,7 @@ import SoundModule from './modules/sound.module';
 import TimerModule from './modules/timer.module';
 import MessageModule from './modules/message.module';
 import AboutDevsModule from './modules/about-devs.module';
-import BlockWeather from './weather/block';
-
-// добавил код AssetGA
-const city = new BlockWeather()
-document.body.append(city.container)
+import WeatherModule from './modules/block.module';
 
 const contextMenu = new ContextMenu('#menu');
 
@@ -22,7 +18,8 @@ const contextMenuModules = [
 	new SoundModule('Воспроизвести звук'),
 	new TimerModule('Запустить таймер'),
 	new MessageModule('Создать сообщение'),
-	new AboutDevsModule('О разработчиках')
+	new AboutDevsModule('О разработчиках'),
+	new WeatherModule('Погода')
 ];
 
 contextMenuModules.forEach(contextMenuModule => {

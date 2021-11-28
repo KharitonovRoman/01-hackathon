@@ -1,6 +1,9 @@
-export default class BlockWeather{
+import { Module } from '../core/module'
+
+export default class WeatherModule extends Module{
     
-    constructor() {
+    constructor(weather) {
+        super('Weather', weather);
         this.container = document.createElement('div');
         this.container.classList = 'container';
         this.container.id = 'container';
@@ -18,13 +21,12 @@ export default class BlockWeather{
         `;
         block.append(blockCity, info);
         this.container.append(block);
-        this.findCity.bind(this)();
         
     };
 
-    findCity () {
+    trigger () {
         let API = 'ea0e6f44e0fe1a6376995ccd76b7c6c3';
-
+        document.body.append(this.container)
         navigator.geolocation.getCurrentPosition(function(position) {
             let requestLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${API}`;
             async function sendRequest2(method, url) {
@@ -32,9 +34,12 @@ export default class BlockWeather{
                     return response.json();
                 })
             };
+           
             setInterval (() => {
                 sendRequest2('GET', requestLocation) 
                     .then(data => {
+
+                        
                         const celsius = Math.round(data.main.temp - 273.15);
 
                         const blockCity = document.querySelector('.block-city');
@@ -50,6 +55,6 @@ export default class BlockWeather{
             }, 10000);
             
         })
-        
+        // 
     };
 }
