@@ -17,7 +17,7 @@
 }
 
 body {
-	display: flex;
+display: flex;
 	flex-direction: column;
 	align-items: center;
 	color: var(--default-text-color);
@@ -30,7 +30,7 @@ body {
 .menu {
 	position: fixed;
 	z-index: 1000;
-	width: 270px; /* if you need change this, change MENU_WIDTH_IN_PIXELS as well */ 
+	width: 270px; /* if you need change this, change MENU_WIDTH_IN_PIXELS as well */
 	background: var(--menu-background);
 	border-radius: 5px;
 	border: 1px solid var(--menu-border-color);
@@ -46,10 +46,10 @@ body {
 .menu .menu-item {
 	height: 36px; /* if you need change this, change MENU_ITEM_HEIGHT_IN_PIXELS as well */
 	padding: 8px 10px;
-	font-size: .5em;
+	font-size: 0.5em;
 	color: var(--default-text-color);
 	cursor: pointer;
-	transition: background-color .2s ease-in;
+	transition: background-color 0.2s ease-in;
 }
 
 .menu .menu-item:first-child {
@@ -65,7 +65,7 @@ body {
 }
 
 .team-container {
-	display: flex;
+display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
@@ -86,7 +86,7 @@ h2 {
 }
 
 h3 {
-	font-size: .8em;
+font-size: .8em;
 	font-weight: 100;
 	margin-bottom: 2em;
 }
@@ -165,4 +165,71 @@ h3 {
 	body {
 		height: initial;
 	}
+}
+
+.timer_container {
+	margin: 10px;
+	padding: 1%;
+	height: 65px;
+	width: 400px;
+	background-color: #f1f1f1;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.button_start {
+	margin: 5px;
+	background-color: #6da870;
+	border: none;
+	color: white;
+	padding: 8px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	border-radius: 20px;
+}
+
+.timer_input_hours,
+.timer_input_min,
+.timer_input_sec {
+	display: inline-block;
+	width: 20%;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	border: 1px solid #bdbdbd;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.time_countdown_container {
+	margin: auto;
+	padding: 10px 20px;
+	font-size: 20px;
+	font-family: Impact, fantasy;
+	color: black;
+	text-align: center;
+}
+
+.message {
+	background: var(--menu-background-hover);
+	color: var(--default-text-color);
+	padding: 20px 20px;
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+	max-width: 400px;
+	max-height: 200px;
+	border-radius: 5px;
+	text-align: center;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+.container-messages {
+	max-width: 400px;
+	max-height: 1000px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
