@@ -28,8 +28,8 @@ export default class WeatherModule extends Module{
         const WEATHER_API_TOKEN = 'ea0e6f44e0fe1a6376995ccd76b7c6c3';
         document.body.append(this.container);
         const blockCity = document.querySelector('.block-city');
-        if(blockCity.textContent === ''){
-            const block = document.querySelector('.block');
+        if (blockCity.textContent === ''){
+            const block = document.querySelector('.block-city');
             block.classList.add('loader') ;
         } 
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -40,7 +40,7 @@ export default class WeatherModule extends Module{
                 })
             };
 
-            setInterval (() => {
+            setInterval(() => {
                 sendRequest('GET', requestLocation) 
                     .then(data => {
                         const celsius = Math.round(data.main.temp - 273.15);
@@ -48,13 +48,12 @@ export default class WeatherModule extends Module{
                         const weather = document.querySelector('.weather');
                         const wind = document.querySelector('.wind');
                         const temp = document.querySelector('.temp');
-                        const block = document.querySelector('.block');
                       
                         blockCity.textContent = data.name;
                         weather.textContent = `Погода: ${data.weather[0].description}`;
                         wind.textContent = `Ветер: ${data.wind.speed} м/с`;
                         temp.textContent = `Температура: ${celsius} ° С`;
-                        block.classList.remove('loader');
+                        blockCity.classList.remove('loader');
                     });
             }, 10000);
         });
