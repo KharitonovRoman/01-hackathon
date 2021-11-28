@@ -71,7 +71,7 @@ export default class ClicksModule extends Module {
 
 	#startAnalytics() {
 		this.#isActive = true;
-		this.#updateTimer(this.#timerValue);
+		this.#updateTimer(`0${this.#timerValue}`);
 		setTimeout(() => {
 			this.#isActive = false;
 		},  this.#clicksTimeoutInSeconds * 1000);
