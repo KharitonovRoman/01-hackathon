@@ -27,8 +27,8 @@ export default class BlockWeather{
 
         navigator.geolocation.getCurrentPosition(function(position) {
             let requestLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${API}`;
-            function sendRequest2(method, url) {
-                return fetch(url).then(response => {
+            async function sendRequest2(method, url) {
+                return await fetch(url).then(response => {
                     return response.json();
                 })
             };
