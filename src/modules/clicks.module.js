@@ -6,7 +6,7 @@ export default class ClicksModule extends Module {
 	#clicksTimeoutInSeconds;
 	#numberOfSingleClicks;
 	#numberOfDoubleClicks;
-	#timerSingleClick;	
+	#timerSingleClick;
 	#timerValue;
 	#timerDisplayId;
 	#isActive;
@@ -18,18 +18,16 @@ export default class ClicksModule extends Module {
 	}
 	
 	trigger() {
-		console.log('Clicks triggered');
 		this.#resetState();
 		this.#createHtml();
 		this.#updateAnalyticsInfo();
-		//this.#setupEventListeners();
 		this.#startAnalytics();
 	}
 
 	#resetState() {
-		this.#clicksTimeoutInSeconds = 5;		
+		this.#clicksTimeoutInSeconds = 5;
 		this.#numberOfSingleClicks = 0;
-		this.#numberOfDoubleClicks = 0;		
+		this.#numberOfDoubleClicks = 0;
 		this.#timerValue = this.#clicksTimeoutInSeconds;
 		this.#isActive = false;
 	}
@@ -40,7 +38,7 @@ export default class ClicksModule extends Module {
 				this.#clickProcessing(true);
 				this.#updateAnalyticsInfo();
 			}, 200)
-		}	
+		}
 	}
 
 	#doubleClickHandler = function() {
@@ -58,13 +56,11 @@ export default class ClicksModule extends Module {
 	}
 
 	#clickProcessing(isSingleClick) {
-		if(this.#isActive) {
-			if(isSingleClick) {
+		if (this.#isActive) {
+			if (isSingleClick) {
 				this.#numberOfSingleClicks++;
-				console.log('Number of single clicks:', this.#numberOfSingleClicks);
 			} else {
 				this.#numberOfDoubleClicks++;
-				console.log('Number of double clicks:', this.#numberOfDoubleClicks);
 			}
 		}
 	}	
@@ -74,15 +70,14 @@ export default class ClicksModule extends Module {
 		this.#updateTimer(this.#timerValue);
 		setTimeout(() => {
 			this.#isActive = false;
-		},  this.#clicksTimeoutInSeconds * 1000);
+		}, this.#clicksTimeoutInSeconds * 1000);
 		clearInterval(this.#timerDisplayId);
 		this.#timerDisplayId = setInterval(this.#displayTimer.bind(this), 1000);
 	}
 
 	#displayTimer() {
-		console.log('displayTimer', this.#timerValue);
-		if(this.#timerValue !== 0) {
-			let value = --this.#timerValue;			
+		if (this.#timerValue !== 0) {
+			const value = --this.#timerValue;
 			this.#updateTimer(value);
 		} else {
 			clearInterval(this.#timerDisplayId);
@@ -90,64 +85,66 @@ export default class ClicksModule extends Module {
 	}
 
 	#updateAnalyticsInfo() {
-		let singleClicks = document.querySelector('#clicks-module-single-counter-number');
-		if(singleClicks) {
+		const singleClicks = document.querySelector('#clicks-module-single-counter-number');
+		if (singleClicks) {
 			singleClicks.textContent = this.#numberOfSingleClicks <= 0 ? 0 : `${this.#numberOfSingleClicks - 1}`;
 		}
 
-		let doubleClicks = document.querySelector('#clicks-module-double-counter-number');
-		if(doubleClicks) {
+		const doubleClicks = document.querySelector('#clicks-module-double-counter-number');
+		if (doubleClicks) {
 			doubleClicks.textContent = `${this.#numberOfDoubleClicks}`;
-		}		
+		}
 	}
 
 	#updateTimer(value) {
-		let timerElem = document.querySelector('#clicks-module-timer-id');
-		if(value < 10) {
+		const timerElem = document.querySelector('#clicks-module-timer-id');
+		if (value < 10) {
 			value = `0${value}`;
 		}
-		timerElem.textContent = `00:${value}`;
+		if (timerElem) {
+			timerElem.textContent = `00:${value}`;
+		}
 	}
 
 	#createHtml() {
-		let moduleExists = document.querySelector('.root-clicks-module');
-		if(moduleExists) {
+		const moduleExists = document.querySelector('.root-clicks-module');
+		if (moduleExists) {
 			return;
 		}
 
-		let module = document.createElement("div");
-		module.className = 'root-clicks-module';
+		const clicksAnalyticModule = document.createElement("div");
+		clicksAnalyticModule.className = 'root-clicks-module';
 
-		let timerBox = document.createElement("div");
+		const timerBox = document.createElement("div");
 		timerBox.className = 'clicks-module-timer-box';
 
-		let countersBox = document.createElement("div");
+		const countersBox = document.createElement("div");
 		countersBox.className = 'clicks-module-counters-box';
 
-		let timerElement = document.createElement("div");
+		const timerElement = document.createElement("div");
 		timerElement.className = 'clicks-module-timer';
 		timerElement.textContent = '00:00';
-		timerElement.id = 'clicks-module-timer-id';		
+		timerElement.id = 'clicks-module-timer-id';
 		
-		let singleClickBox = document.createElement("div");
+		const singleClickBox = document.createElement("div");
 		singleClickBox.className = 'clicks-module-box';
 
-		let doubleClickBox = document.createElement("div");
+		const doubleClickBox = document.createElement("div");
 		doubleClickBox.className = 'clicks-module-box';
 
-		let singleClickCaption = document.createElement("div");
+		const singleClickCaption = document.createElement("div");
 		singleClickCaption.className = 'clicks-module-counter-caption';
 		singleClickCaption.textContent = 'Кол-во одиночных кликов:';
 		
-		let doubleClickCaption = document.createElement("div");
+		const doubleClickCaption = document.createElement("div");
 		doubleClickCaption.className = 'clicks-module-counter-caption';
 		doubleClickCaption.textContent = 'Кол-во двойных кликов:';
 
-		let singleClickCounter = document.createElement("div");
+		const singleClickCounter = document.createElement("div");
 		singleClickCounter.className = 'clicks-module-counter-number';
 		singleClickCounter.id = 'clicks-module-single-counter-number';
 
-		let doubleClickCounter = document.createElement("div");
+		const doubleClickCounter = document.createElement("div");
 		doubleClickCounter.className = 'clicks-module-counter-number';
 		doubleClickCounter.id = 'clicks-module-double-counter-number';
 
@@ -162,9 +159,15 @@ export default class ClicksModule extends Module {
 		countersBox.appendChild(singleClickBox);
 		countersBox.appendChild(doubleClickBox);
 		
-		module.appendChild(timerBox);
-		module.appendChild(countersBox);
+		clicksAnalyticModule.appendChild(timerBox);
+		clicksAnalyticModule.appendChild(countersBox);
 		
-		document.body.append(module);
+		document.body.append(clicksAnalyticModule);
+		
+		setTimeout(() => {
+			if (clicksAnalyticModule) {
+				clicksAnalyticModule.remove();
+			}
+		}, 8000);
 	}
 }
