@@ -13,6 +13,8 @@ export default class MeteorShower extends Module {
 
     trigger() {
         if (!this.isRun) {
+		  const currentBackground = document.body.style.background;
+		  const currentColor = document.body.style.color;
             const body = document.querySelector('body');
 
             const cometTemplate = document.createElement('div');
@@ -23,10 +25,10 @@ export default class MeteorShower extends Module {
 
             body.classList.add('meteor-shower');
             body.style.background = `url(${starSky}) no-repeat center`;
+		  body.style.color = 'white';
             body.style.backgroundRepeat = 'no-repeat';
             body.style.backgroundSize = 'cover';
 
-            //body.append(meteorShower);
             const comets = [];
             for (let index = 0; index < 50; index++) {
                 let comet = cometTemplate.cloneNode(true);
@@ -51,14 +53,13 @@ export default class MeteorShower extends Module {
             function deleteModule() {
                 comets.forEach(comet => comet.remove());
                 body.classList.remove('meteor-shower');
-                body.style.background = '';
+                body.style.background = currentBackground;
+			 body.style.color = currentColor;
                 this.isRun = false;
             }
 
             setTimeout(deleteModule.bind(this), 3000);
             this.isRun = true;
         }
-
     }
-
 }
