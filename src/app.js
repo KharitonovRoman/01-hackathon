@@ -19,12 +19,12 @@ const contextMenu = new ContextMenu('#menu');
 const contextMenuModules = [
 	new ClicksModule('Аналитика кликов за 5 секунд'),
 	new BackgroundModule('Поменять фон'),
-	new ShapeModule('Создать фигуру'),
+	new ShapeModule('Создать 5 фигур'),
 	new SoundModule('Воспроизвести звук'),
 	new TimerModule('Запустить таймер'),
 	new MessageModule('Создать сообщение'),
 	new MeteorShower('Метеоритный дождь'),
-  new WeatherModule('Погода'),
+	new WeatherModule('Узнать погоду'),
 	new AboutDevsModule('О разработчиках'),
 ];
 

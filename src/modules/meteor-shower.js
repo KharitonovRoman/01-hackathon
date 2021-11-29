@@ -46,7 +46,6 @@ export default class MeteorShower extends Module {
                     comet.style.left = `${-1 * left}px`;
                     console.log(`${-1 * left}px`);
                 });
-
             }, 0);
 
             function deleteModule() {

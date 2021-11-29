@@ -1,11 +1,11 @@
 import { Module } from '../core/module';
-import yanaa from '../assets/yana.jpg';
-import asset from '../assets/asset.jpg';
-import marat from '../assets/marat.jpg';
-import diman from '../assets/dimarik.jpg';
-import roman from '../assets/roman.jpg';
-import alexy from '../assets/alexey.jpg';
-import darya from '../assets/darya.jpg';
+import yanaa from '../assets/img/yana.jpg';
+import asset from '../assets/img/asset.jpg';
+import marat from '../assets/img/marat.jpg';
+import diman from '../assets/img/dimarik.jpg';
+import roman from '../assets/img/roman.jpg';
+import alexy from '../assets/img/alexey.jpg';
+import darya from '../assets/img/darya.jpg';
 
 export default class AboutDevsModule extends Module {
 	#isModuleRendered;
