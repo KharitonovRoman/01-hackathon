@@ -101,9 +101,7 @@ export default class ClicksModule extends Module {
 		if (value < 10) {
 			value = `0${value}`;
 		}
-		if (timerElem) {
-			timerElem.textContent = `00:${value}`;
-		}
+		timerElem.textContent = `00:${value}`;
 	}
 
 	#createHtml() {
