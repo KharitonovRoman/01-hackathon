@@ -21,12 +21,12 @@ export default class MessageModule extends Module {
     super('Message', text);
 		this.container = document.createElement("div");
 		this.container.className = "container-messages";
-		document.body.append(this.container);
+		document.body.append(this.container);	
 	}
 
 	trigger() {
 		//случайный выбор сообщения из массива
-    const randomMessage =  messages[random(0, messages.length - 1)];
+		const randomMessage =  messages[random(0, messages.length - 1)];
     
 		//верстка блока с сообщением
 		const messageBlock = document.createElement("div");
@@ -34,11 +34,38 @@ export default class MessageModule extends Module {
 		messageBlock.className = "message";
 		this.container.append(messageBlock);
 
+		//верстка крестика удалить
+		const btnDelete = document.createElement("button");
+		btnDelete.className = "btn-delete";
+		btnDelete.textContent = '✖';
+		messageBlock.append(btnDelete);
+
+		// когда наводят мышкой на блок с сообщение
+		messageBlock.addEventListener("mouseover", (event) => {
+			event.preventDefault();
+			btnDelete.style.display = 'block';
+			
+		});
+
+		// когда уводят фокус с блока сообщением
+		messageBlock.addEventListener("mouseout", (event) => {
+			event.preventDefault();
+			btnDelete.style.display = 'none';
+		});
+
 		// Удаление блока через некоторое время
 		setTimeout(function () {
 			if (messageBlock) {
-			messageBlock.remove();
+				messageBlock.remove();
 			}
-		}, 5000);
+		}, 10000);
+
+		// Удаление блока нажав на крестик
+		btnDelete.addEventListener("click", (event) => {
+			event.preventDefault();
+			if (messageBlock) {
+				messageBlock.remove();
+			}
+		})
 	}
 }
