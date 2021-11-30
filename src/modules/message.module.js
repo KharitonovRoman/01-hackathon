@@ -40,29 +40,15 @@ export default class MessageModule extends Module {
 		btnDelete.textContent = '✖';
 		messageBlock.append(btnDelete);
 
-		// когда наводят мышкой на блок с сообщение
-		messageBlock.addEventListener("mouseover", (event) => {
-			event.preventDefault();
-			btnDelete.style.display = 'block';
-			
-		});
-
-		// когда уводят фокус с блока сообщением
-		messageBlock.addEventListener("mouseout", (event) => {
-			event.preventDefault();
-			btnDelete.style.display = 'none';
-		});
-
 		// Удаление блока через некоторое время
 		setTimeout(function () {
 			if (messageBlock) {
 				messageBlock.remove();
 			}
-		}, 10000);
+		}, 15000);
 
 		// Удаление блока нажав на крестик
-		btnDelete.addEventListener("click", (event) => {
-			event.preventDefault();
+		btnDelete.addEventListener("click", () => {
 			if (messageBlock) {
 				messageBlock.remove();
 			}
