@@ -1,83 +1,83 @@
 import { Module } from "../core/module";
 
 export default class TimerModule extends Module {
-  constructor(text) {
-    super("Timer", text);
-    this.isRun = false;
-  }
+	constructor(text) {
+		super("Timer", text);
+		this.timerContainer = document.createElement("div");
+		this.timerContainer.className = "timer-container";
+		document.body.append(this.timerContainer);
+	}
 
-  trigger() {
-    if (!this.isRun) {
-      const timer = document.createElement("div");
-      timer.className = "timer_container";
+	#getTimerId = (function () {
+		let timerId = 1;
+		return function () {
+			return timerId++;
+		};
+	})();
 
-      const button = document.createElement("button");
-      button.className = "button_start";
-      button.textContent = "запустить";
+	trigger() {
+		const timerId = this.#getTimerId();
+		const timer = document.createElement("div");
+		timer.id = `timer${timerId}`;
+		timer.className = "timer";
+		const button = document.createElement("button");
+		button.className = "btn-start";
+		button.textContent = "start";
 
-      let inputHTML = `
-			<input class="timer_input_hours" name="hours" type="number" max="59" min="0">
-			<input class="timer_input_min" name="minutes" type="number" max="59" min="0">
-			<input class="timer_input_sec" name="seconds" type="number" max="59" min="0">`;
+		timer.innerHTML = `
+			<input id="timer${timerId}-input-hours" class="timer-input-hours" name="hours" type="number" max="59" min="0" placeholder="hh" />
+			<input id="timer${timerId}-input-mins" class="timer-input-min" name="minutes" type="number" max="59" min="0" placeholder="mm" />
+			<input id="timer${timerId}-input-secs" class="timer-input-sec" name="seconds" type="number" max="59" min="0" placeholder="ss" />
+		`;
 
-      let timeCountdownContainerHTML = `
-			<div class="time_countdown_container">
-				<p id="timer">
-					<span id="timer-hours"></span>
-					<span id="timer-mins"></span>
-					<span id="timer-secs"></span>
-				</p>
-			</div>`;
+		button.addEventListener("click", () => {
+			let timerInputSec = document.querySelector(`#timer${timerId}-input-secs`);
+			let timerInputMin = document.querySelector(`#timer${timerId}-input-mins`);
+			let timerInputHours = document.querySelector(`#timer${timerId}-input-hours`);
+			let timerSec = Number(timerInputSec.value);
+			let timerMin = Number(timerInputMin.value);
+			let timerHours = Number(timerInputHours.value);
+			const endDate = new Date();
+			endDate.setHours(
+				endDate.getHours() + timerHours,
+				endDate.getMinutes() + timerMin,
+				endDate.getSeconds() + timerSec + 1
+			);
+			timer.innerHTML = `
+				<div class="time-countdown-container">
+					<p id="timer${timerId}">
+						<span id="timer${timerId}-hours"></span>
+						<span id="timer${timerId}-mins"></span>
+						<span id="timer${timerId}-secs"></span>
+					</p>
+				</div>
+			`;
 
-      timer.innerHTML = inputHTML;
-      timer.append(button);
-      document.body.append(timer);
-      button.addEventListener("click", (event) => {
-        let timerInputSec = document.querySelector(".timer_input_sec");
-        let timerInputMin = document.querySelector(".timer_input_min");
-        let timerInputHours = document.querySelector(".timer_input_hours");
-        let timerSec = Number(timerInputSec.value);
-        let timerMin = Number(timerInputMin.value);
-        let timerHours = Number(timerInputHours.value);
-        const endDate = new Date();
-        endDate.setHours(
-          endDate.getHours() + timerHours,
-          endDate.getMinutes() + timerMin,
-          endDate.getSeconds() + timerSec + 1
-        );
-	   this.isRun = false;
-        timer.innerHTML = timeCountdownContainerHTML;
+			const timerFunc = setInterval(function () {
+				const currentDate = new Date();
+				let deltaTime = endDate.getTime() - currentDate.getTime();
 
-        const timerFunc = setInterval(function () {
-          const currentDate = new Date();
+				if (deltaTime >= 0) {
+					let hours = Math.floor((deltaTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					let mins = Math.floor((deltaTime % (1000 * 60 * 60)) / (1000 * 60));
+					let secs = Math.floor((deltaTime % (1000 * 60)) / 1000);
 
-          let deltaTime = endDate.getTime() - currentDate.getTime();
+					document.querySelector(`#timer${timerId}-hours`).innerHTML = ("0" + hours).slice(-2) + '<span class="label"> : </span>';
+					document.querySelector(`#timer${timerId}-mins`).innerHTML = ("0" + mins).slice(-2) + '<span class="label"> : </span>';
+					document.querySelector(`#timer${timerId}-secs`).innerHTML = ("0" + secs).slice(-2) + '<span class="label"></span>';
+				} else {
+					document.querySelector(`#timer${timerId}`).innerHTML = "TIME IS OVER";
+					clearInterval(timerFunc);
+					const endingFunc = setTimeout(() => {
+						let element = document.querySelector(`#timer${timerId}`);
+						element.remove();
+						clearInterval(endingFunc);
+					}, 2000);
+				}
+			}, 1000);
+		});
 
-          if (deltaTime >= 0) {
-            let hours = Math.floor(
-              (deltaTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            let mins = Math.floor((deltaTime % (1000 * 60 * 60)) / (1000 * 60));
-            let secs = Math.floor((deltaTime % (1000 * 60)) / 1000);
-
-            document.getElementById("timer-hours").innerHTML =
-              ("0" + hours).slice(-2) + '<span class="label"> hour(s) </span>';
-            document.getElementById("timer-mins").innerHTML =
-              ("0" + mins).slice(-2) + '<span class="label"> min(s) </span>';
-            document.getElementById("timer-secs").innerHTML =
-              ("0" + secs).slice(-2) + '<span class="label"> sec(s) </span>';
-          } else {
-            document.getElementById("timer").innerHTML = "TIME IS OVER";
-            clearInterval(timerFunc);
-            const endingFunc = setTimeout(() => {
-              let element = document.querySelector(".timer_container");
-              document.body.removeChild(element);
-              clearInterval(endingFunc);
-            }, 2000);
-          }
-        }, 1000);
-      });
-      this.isRun = true;
-    }
-  }
+		timer.append(button);
+		this.timerContainer.append(timer);
+	}
 }

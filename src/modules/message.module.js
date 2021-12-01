@@ -18,21 +18,21 @@ const messages = [
 
 export default class MessageModule extends Module {
 	constructor(text) {
-    super('Message', text);
-		this.container = document.createElement("div");
-		this.container.className = "container-messages";
-		document.body.append(this.container);	
+		super('Message', text);
+		this.messageContainer = document.createElement("div");
+		this.messageContainer.className = "message-container";
+		document.body.append(this.messageContainer);
 	}
 
 	trigger() {
 		//случайный выбор сообщения из массива
 		const randomMessage =  messages[random(0, messages.length - 1)];
-    
+
 		//верстка блока с сообщением
 		const messageBlock = document.createElement("div");
 		messageBlock.textContent = randomMessage;
 		messageBlock.className = "message";
-		this.container.append(messageBlock);
+		this.messageContainer.append(messageBlock);
 
 		//верстка крестика удалить
 		const btnDelete = document.createElement("button");
@@ -41,7 +41,7 @@ export default class MessageModule extends Module {
 		messageBlock.append(btnDelete);
 
 		// Удаление блока через некоторое время
-		setTimeout(function () {
+		setTimeout(function() {
 			if (messageBlock) {
 				messageBlock.remove();
 			}
