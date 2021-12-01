@@ -126,6 +126,13 @@ h3 {
 .weather-container {
 	font-size: 1em;
 	font-weight: 300;
+	background-color: var(--menu-background-hover);
+	padding: 15px;
+	border-radius: 15px;
+	font-size: 24px;
+	font-weight: 100;
+	text-align: center;
+	color: var(--default-text-color);
 }
 
 .teammate-contacts svg:hover {

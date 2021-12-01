@@ -54,7 +54,6 @@ export default class WeatherModule extends Module {
 			});
 			
 			setTimeout(() => {
-				const weatherContainer = document.querySelector(".weather-container");
 				if (this.weatherContainer) {
 					this.isRun = false;
 					this.weatherContainer.remove();
