@@ -1,5 +1,6 @@
 import { Module } from "../core/module";
 import { random } from "../utils";
+import { createCross } from "../utils";
 
 // массив сообщений
 const messages = [
@@ -34,12 +35,6 @@ export default class MessageModule extends Module {
 		messageBlock.className = "message";
 		this.messageContainer.append(messageBlock);
 
-		//верстка крестика удалить
-		const btnDelete = document.createElement("button");
-		btnDelete.className = "btn-delete";
-		btnDelete.textContent = '✖';
-		messageBlock.append(btnDelete);
-
 		// Удаление блока через некоторое время
 		setTimeout(function() {
 			if (messageBlock) {
@@ -47,11 +42,7 @@ export default class MessageModule extends Module {
 			}
 		}, 15000);
 
-		// Удаление блока нажав на крестик
-		btnDelete.addEventListener("click", () => {
-			if (messageBlock) {
-				messageBlock.remove();
-			}
-		})
+		//функция создания крестика и удаления блока messageBlock
+		createCross(messageBlock);
 	}
 }

@@ -1,4 +1,5 @@
 import { Module } from "../core/module";
+import { createCross } from "../utils";
 
 export default class TimerModule extends Module {
 	constructor(text) {
@@ -75,6 +76,7 @@ export default class TimerModule extends Module {
 					}, 2000);
 				}
 			}, 0);
+			
 			//верстка крестика удалить
 			const btnDelete = document.createElement("button");
 			btnDelete.className = "btn-delete";
@@ -85,22 +87,13 @@ export default class TimerModule extends Module {
 			btnDelete.addEventListener("click", () => {
 				if (timer) {
 					timer.remove();
+					clearInterval(timerFunc);
 				}
 			})
+			
 		});
-
-		//верстка крестика удалить
-		const btnDelete = document.createElement("button");
-		btnDelete.className = "btn-delete";
-		btnDelete.textContent = '✖';
-		timer.append(btnDelete);
-
-		// Удаление блока нажав на крестик
-		btnDelete.addEventListener("click", () => {
-			if (timer) {
-				timer.remove();
-			}
-		})
+		//функция создания крестика и удаления блока timer
+		createCross(timer);
 
 		timer.append(button);
 		this.timerContainer.append(timer);
