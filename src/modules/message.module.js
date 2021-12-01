@@ -1,8 +1,7 @@
 import { Module } from "../core/module";
 import { random } from "../utils";
-import { createCross } from "../utils";
+import { addButtonToRemoveParentContainer } from "../utils";
 
-// массив сообщений
 const messages = [
 	"Хуже всего приходится программистам из Microsoft. Им, бедолагам, в случае чего и обругать-то некого.",
 	"Почему программисты не живут отдельно от родителей? Не хотят чтобы отключилась функция авто заполнения холодильника.",
@@ -26,23 +25,16 @@ export default class MessageModule extends Module {
 	}
 
 	trigger() {
-		//случайный выбор сообщения из массива
 		const randomMessage =  messages[random(0, messages.length - 1)];
-
-		//верстка блока с сообщением
 		const messageBlock = document.createElement("div");
 		messageBlock.textContent = randomMessage;
 		messageBlock.className = "message";
+		addButtonToRemoveParentContainer(messageBlock, '✖');
 		this.messageContainer.append(messageBlock);
-
-		// Удаление блока через некоторое время
 		setTimeout(function() {
 			if (messageBlock) {
 				messageBlock.remove();
 			}
 		}, 15000);
-
-		//функция создания крестика и удаления блока messageBlock
-		createCross(messageBlock);
 	}
 }

@@ -1,5 +1,5 @@
 import { Module } from "../core/module";
-import { createCross } from "../utils";
+import { addButtonToRemoveParentContainer } from "../utils";
 
 export default class TimerModule extends Module {
 	constructor(text) {
@@ -21,16 +21,16 @@ export default class TimerModule extends Module {
 		const timer = document.createElement("div");
 		timer.id = `timer${timerId}`;
 		timer.className = "timer";
-		const button = document.createElement("button");
-		button.className = "btn-start";
-		button.textContent = "start";
-
 		timer.innerHTML = `
 			<input id="timer${timerId}-input-hours" class="timer-input-hours" name="hours" type="number" max="59" min="0" placeholder="hh" />
 			<input id="timer${timerId}-input-mins" class="timer-input-min" name="minutes" type="number" max="59" min="0" placeholder="mm" />
 			<input id="timer${timerId}-input-secs" class="timer-input-sec" name="seconds" type="number" max="59" min="0" placeholder="ss" />
 		`;
-
+		addButtonToRemoveParentContainer(timer, '✖');
+		
+		const button = document.createElement("button");
+		button.className = "btn-start";
+		button.textContent = "start";
 		button.addEventListener("click", () => {
 			let timerInputSec = document.querySelector(`#timer${timerId}-input-secs`);
 			let timerInputMin = document.querySelector(`#timer${timerId}-input-mins`);
@@ -38,6 +38,12 @@ export default class TimerModule extends Module {
 			let timerSec = Number(timerInputSec.value);
 			let timerMin = Number(timerInputMin.value);
 			let timerHours = Number(timerInputHours.value);
+
+			if (!(timerHours + timerMin + timerSec)) {
+				alert("Введите часы, минуты или секунды");
+				return;
+			}
+
 			const endDate = new Date();
 			endDate.setHours(
 				endDate.getHours() + timerHours,
@@ -76,24 +82,11 @@ export default class TimerModule extends Module {
 					}, 2000);
 				}
 			}, 0);
-			
-			//верстка крестика удалить
-			const btnDelete = document.createElement("button");
-			btnDelete.className = "btn-delete";
-			btnDelete.textContent = '✖';
-			timer.append(btnDelete);
 
-			// Удаление блока нажав на крестик
-			btnDelete.addEventListener("click", () => {
-				if (timer) {
-					timer.remove();
-					clearInterval(timerFunc);
-				}
-			})
-			
+			addButtonToRemoveParentContainer(timer, '✖', () => {
+				clearInterval(timerFunc);
+			});
 		});
-		//функция создания крестика и удаления блока timer
-		createCross(timer);
 
 		timer.append(button);
 		this.timerContainer.append(timer);
