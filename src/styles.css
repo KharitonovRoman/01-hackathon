@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&family=Roboto:wght@100;300;400&display=swap');
 
 :root {
 	--main-background: #2b2b2b;
@@ -87,7 +87,7 @@ h2 {
 }
 
 h3 {
-font-size: .8em;
+	font-size: 0.8em;
 	font-weight: 100;
 	margin-bottom: 2em;
 }
@@ -130,7 +130,7 @@ font-size: .8em;
 
 .teammate-contacts svg:hover {
 	transform: scale(1.12);
-	transition: all .2s ease;
+	transition: all 0.2s ease;
 }
 
 .teammate-contacts a:nth-child(1) svg {
@@ -149,94 +149,98 @@ font-size: .8em;
 	color: #ffffff;
 }
 
-@media(max-width: 720px) {
+@media (max-width: 720px) {
 	.team-container {
 		flex-direction: column;
 		width: 80%;
 	}
-	
+
 	.teammate {
 		max-width: 100%;
 		margin-bottom: 7vh;
 	}
-	
+
 	.teammate-name {
 		font-size: 1em;
 	}
-	
+
 	h3 {
 		text-align: center;
 	}
-	
+
 	body {
 		height: initial;
 		overflow: auto;
 	}
 }
 
-.timer_container {
-	margin: 10px;
+.timer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
 	padding: 1%;
-	height: 65px;
-	width: 400px;
-	background-color: #f1f1f1;
-	border-radius: 20px;
-	text-align: center;
+	width: 500px;
+	background-color: var(--menu-background-hover);
+	border-radius: 15px;
+	box-shadow: 0 0 15px #111111;
+	padding: 1em;
+	margin: 20px 0;
 }
 
-.button_start {
-	margin: 5px;
-	background-color: #6da870;
+.btn-start,
+.timer-input-hours,
+.timer-input-min,
+.timer-input-sec {
+	display: inline-block;
 	border: none;
-	color: white;
-	padding: 8px 10px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 13px;
-	border-radius: 20px;
-}
-
-.timer_input_hours,
-.timer_input_min,
-.timer_input_sec {
-	display: inline-block;
-	width: 20%;
-	line-height: 1.5;
-	color: #212529;
-	background-color: #fff;
-	border: 1px solid #bdbdbd;
 	border-radius: 10px;
 	padding: 5px;
+	font-size: 1em;
 }
 
-.time_countdown_container {
-	margin: auto;
-	padding: 10px 20px;
-	font-size: 20px;
-	font-family: Impact, fantasy;
-	color: black;
-	text-align: center;
+.btn-start {
+	background-color: #6da870;
+	color: var(--default-text-color);
+}
+
+.time-countdown-container {
+	font-size: 1.3em;
+	font-family: 'JetBrains Mono', monospace;
+	font-weight: 600;
+	color: var(--default-text-color);
 }
 
 .message {
 	background: var(--menu-background-hover);
 	color: var(--default-text-color);
-	padding: 20px 20px;
-	font-family: "Roboto", sans-serif;
+	padding: 30px 20px 20px;
 	font-size: 16px;
 	max-width: 400px;
 	max-height: 200px;
 	border-radius: 5px;
-	text-align: center;
 	margin-bottom: 5px;
 	margin-right: 5px;
+	text-align: center;
+	position: relative;
 }
 
-.container-messages {
+.message-container {
 	max-width: 400px;
-	max-height: 1000px;
 	position: absolute;
 	right: 0;
 	bottom: 0;
+}
+
+.btn-delete {
+	margin-right: 10px;
+	margin-top: 5px;
+	border: none;
+	color: #0a265a;
+	background-color: transparent;
+	border-radius: 1px;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
 }

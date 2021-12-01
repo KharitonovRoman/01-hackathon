@@ -13,7 +13,7 @@ export default class ShapeModule extends Module {
 		this.#canvasWidth = window.innerWidth;
 		this.#canvasHeight = window.innerHeight;
 		this.#shapeContainer = document.createElement('div');
-		this.#shapeContainer.id = 'shapeContainer';
+		this.#shapeContainer.id = 'shape-container';
 		this.#shapeContainer.style.position = 'absolute';
 		this.#shapeContainer.style.top = '0';
 		this.#shapeContainer.style.left = '0';
@@ -25,7 +25,7 @@ export default class ShapeModule extends Module {
 		this.#shapeContainer.style.zIndex = 1;
 		const baseLayer = new Konva.Layer();
 		const stage = new Konva.Stage({
-			container: 'shapeContainer',
+			container: 'shape-container',
 			width: this.#canvasWidth,
 			height: this.#canvasHeight,
 		});
