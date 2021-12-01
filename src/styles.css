@@ -186,6 +186,7 @@ h3 {
 	box-shadow: 0 0 15px #111111;
 	padding: 1em;
 	margin: 20px 0;
+	position: relative;
 }
 
 .btn-start,

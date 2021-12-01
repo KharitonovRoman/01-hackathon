@@ -74,8 +74,33 @@ export default class TimerModule extends Module {
 						clearInterval(endingFunc);
 					}, 2000);
 				}
-			}, 1000);
+			}, 0);
+			//верстка крестика удалить
+			const btnDelete = document.createElement("button");
+			btnDelete.className = "btn-delete";
+			btnDelete.textContent = '✖';
+			timer.append(btnDelete);
+
+			// Удаление блока нажав на крестик
+			btnDelete.addEventListener("click", () => {
+				if (timer) {
+					timer.remove();
+				}
+			})
 		});
+
+		//верстка крестика удалить
+		const btnDelete = document.createElement("button");
+		btnDelete.className = "btn-delete";
+		btnDelete.textContent = '✖';
+		timer.append(btnDelete);
+
+		// Удаление блока нажав на крестик
+		btnDelete.addEventListener("click", () => {
+			if (timer) {
+				timer.remove();
+			}
+		})
 
 		timer.append(button);
 		this.timerContainer.append(timer);
