@@ -1,6 +1,7 @@
 import './styles.css';
 import ContextMenu from './menu';
 import BackgroundModule from './modules/background.module';
+import CounterStrikeModule from './modules/counter-strike.module';
 import ClicksModule from './modules/clicks.module';
 import ShapeModule from './modules/shape.module';
 import SoundModule from './modules/sound.module';
@@ -18,6 +19,7 @@ const contextMenu = new ContextMenu('#menu');
 
 const contextMenuModules = [
 	new ClicksModule('Аналитика кликов за 5 секунд'),
+	new CounterStrikeModule('Counter-Strike'),
 	new BackgroundModule('Поменять фон'),
 	new ShapeModule('Создать 5 фигур'),
 	new SoundModule('Воспроизвести звук'),
