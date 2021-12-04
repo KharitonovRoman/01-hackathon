@@ -76,12 +76,26 @@ class Teammate {
 			<img src="${this.#avaUrl}" alt="${this.#name}'s ava" />
 			<div class='teammate-name'>${this.#name}</div>
 			<div class="teammate-contacts">
-				<a target="_blank" href="https://t.me/${this.#telegram}"><i class="fab fa-telegram-plane"></i></a>
-				<a target="_blank" href="https://www.instagram.com/${this.#instagram}">
-					<i class="fab fa-instagram"></i>
-				</a>
-				<a target="_blank" href="https://vk.com/${this.#vk}"><i class="fab fa-vk"></i></a>
-				<a target="_blank" href="https://github.com/${this.#github}"><i class="fab fa-github"></i></a>
+				${
+					(this.#telegram === "#")
+					? `<span class="disabled-icon"><i class="fab fa-telegram-plane"></i></span>`
+					: `<span><a target="_blank" href="https://t.me/${this.#telegram}"><i class="fab fa-telegram-plane"></i></a></span>`
+				}
+				${
+					(this.#instagram === "#")
+					? `<span class="disabled-icon"><i class="fab fa-instagram"></i></span>`
+					: `<span><a target="_blank" href="https://www.instagram.com/${this.#instagram}"><i class="fab fa-instagram"></i></a></span>`
+				}
+				${
+					(this.#vk === "#")
+					? `<span class="disabled-icon"><i class="fab fa-vk"></i></span>`
+					: `<span><a target="_blank" href="https://vk.com/${this.#vk}"><i class="fab fa-vk"></i></a></span>`
+				}
+				${
+					(this.#github === "#")
+					? `<span class="disabled-icon"><i class="fab fa-github"></i></span>`
+					: `<span><a target="_blank" href="https://github.com/${this.#github}"><i class="fab fa-github"></i></a></span>`
+				}
 			</div>
 		</div>`;
 	}
@@ -91,7 +105,7 @@ const teammates = [
 	{
 		name: 'Яна',
 		url: yanaa,
-		telegram: 'domosed27',
+		telegram: 'yanadeyeva',
 		github: 'Nuyrguyana',
 		vk: '#',
 		instagram: '#'
@@ -110,7 +124,7 @@ const teammates = [
 		telegram: 'alexeyio',
 		github: 'alexion11',
 		vk: '#',
-		instagram: '#'
+		instagram: 'ionov.aleksey'
 	},
 	{
 		name: 'Roman Kharitonov',

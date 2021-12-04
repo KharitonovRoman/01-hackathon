@@ -26,7 +26,7 @@ export default class TimerModule extends Module {
 			<input id="timer${timerId}-input-mins" class="timer-input-min" name="minutes" type="number" max="59" min="0" placeholder="mm" />
 			<input id="timer${timerId}-input-secs" class="timer-input-sec" name="seconds" type="number" max="59" min="0" placeholder="ss" />
 		`;
-		addButtonToRemoveParentContainer(timer, '✖');
+		addButtonToRemoveParentContainer(timer);
 		
 		const button = document.createElement("button");
 		button.className = "btn-start";

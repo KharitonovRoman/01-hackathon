@@ -29,7 +29,7 @@ export default class MessageModule extends Module {
 		const messageBlock = document.createElement("div");
 		messageBlock.textContent = randomMessage;
 		messageBlock.className = "message";
-		addButtonToRemoveParentContainer(messageBlock, '✖');
+		addButtonToRemoveParentContainer(messageBlock);
 		this.messageContainer.append(messageBlock);
 		setTimeout(function() {
 			if (messageBlock) {
